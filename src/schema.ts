@@ -28,7 +28,6 @@ export const typeDefs = gql`
     id: ID!
     thumbnail: String!
     title: String!
-    description: String!
     author: Author
     numberOfViews: Int
   }

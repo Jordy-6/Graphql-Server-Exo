@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { TrackModel, AuthorModel, FilmModel, PeopleModel } from './models';
+import { TrackModel, AuthorModel, FilmModel, PeopleModel } from './src/types';
 import { DataSourceContext } from './context';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -120,7 +120,6 @@ export enum Speciality {
 export type Track = {
   __typename?: 'Track';
   author?: Maybe<Author>;
-  description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   numberOfViews?: Maybe<Scalars['Int']['output']>;
   thumbnail: Scalars['String']['output'];
@@ -211,7 +210,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Speciality: Speciality;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  Track: ResolverTypeWrapper<TrackModel>;
+  Track: ResolverTypeWrapper<Omit<Track, 'author'> & { author?: Maybe<ResolversTypes['Author']> }>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -228,7 +227,7 @@ export type ResolversParentTypes = {
   People: PeopleModel;
   Query: {};
   String: Scalars['String']['output'];
-  Track: TrackModel;
+  Track: Omit<Track, 'author'> & { author?: Maybe<ResolversParentTypes['Author']> };
 };
 
 export type AuthorResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Author'] = ResolversParentTypes['Author']> = {
@@ -285,7 +284,6 @@ export type QueryResolvers<ContextType = DataSourceContext, ParentType extends R
 
 export type TrackResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = {
   author?: Resolver<Maybe<ResolversTypes['Author']>, ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   numberOfViews?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   thumbnail?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

@@ -1,9 +1,9 @@
 import { FilmAPI } from "./datasources/FilmAPI";
-import  TrackAPI  from "./datasources/TrackAPI";
+import TrackAPI from "./datasources/TrackAPI";
 
 export type DataSourceContext = {
-  dataSources: {
-    trackAPI: TrackAPI;
-    filmAPI: FilmAPI;
+    dataSources: {
+      trackAPI: TrackAPI,
+      filmAPI: FilmAPI
+    };
   };
-};

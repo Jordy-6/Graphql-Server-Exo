@@ -61,7 +61,7 @@ export const resolvers: Resolvers  = {
   },
   Track: {
     author: (parent, _, {dataSources}) => {
-      return dataSources.trackAPI.getAuthorBy(parent.authorId)
+      return dataSources.trackAPI.getAuthorById(parent.id)
     }
   },
   Film: {
