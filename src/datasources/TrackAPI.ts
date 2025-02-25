@@ -10,11 +10,15 @@ class TrackAPI extends RESTDataSource {
     }
 
     getAuthorById(id: string) {
-        return this.get<AuthorModel[]>(`authors/${id}`);
+        return this.get<AuthorModel>(`authors/${id}`);
     }
 
     incrementTrackViews(trackId: string) {
       return this.patch<TrackModel>(`track/${trackId}/numberOfViews`)
+    }
+
+    incrementNumberOfLikes(trackId: string) {
+      return this.patch<TrackModel>(`track/${trackId}/numberOfLikes`)
     }
 }
 

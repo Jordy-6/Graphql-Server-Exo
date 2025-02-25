@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { TrackModel, AuthorModel, FilmModel, PeopleModel } from './src/types';
+import { TrackModel, AuthorModel, FilmModel, PeopleModel } from './models';
 import { DataSourceContext } from './context';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -39,6 +39,14 @@ export type Film = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+export type IncrementNumberOfLikesReponse = {
+  __typename?: 'IncrementNumberOfLikesReponse';
+  code: Scalars['Int']['output'];
+  message: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+  track?: Maybe<Track>;
+};
+
 export type IncrementTrackViewReponse = {
   __typename?: 'IncrementTrackViewReponse';
   code: Scalars['Int']['output'];
@@ -49,7 +57,13 @@ export type IncrementTrackViewReponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  incrementNumberOfLikes: IncrementNumberOfLikesReponse;
   incrementTrackView: IncrementTrackViewReponse;
+};
+
+
+export type MutationIncrementNumberOfLikesArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -203,6 +217,7 @@ export type ResolversTypes = {
   Film: ResolverTypeWrapper<FilmModel>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  IncrementNumberOfLikesReponse: ResolverTypeWrapper<Omit<IncrementNumberOfLikesReponse, 'track'> & { track?: Maybe<ResolversTypes['Track']> }>;
   IncrementTrackViewReponse: ResolverTypeWrapper<Omit<IncrementTrackViewReponse, 'track'> & { track?: Maybe<ResolversTypes['Track']> }>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -221,6 +236,7 @@ export type ResolversParentTypes = {
   Film: FilmModel;
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
+  IncrementNumberOfLikesReponse: Omit<IncrementNumberOfLikesReponse, 'track'> & { track?: Maybe<ResolversParentTypes['Track']> };
   IncrementTrackViewReponse: Omit<IncrementTrackViewReponse, 'track'> & { track?: Maybe<ResolversParentTypes['Track']> };
   Int: Scalars['Int']['output'];
   Mutation: {};
@@ -250,6 +266,14 @@ export type FilmResolvers<ContextType = DataSourceContext, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type IncrementNumberOfLikesReponseResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['IncrementNumberOfLikesReponse'] = ResolversParentTypes['IncrementNumberOfLikesReponse']> = {
+  code?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  track?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type IncrementTrackViewReponseResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['IncrementTrackViewReponse'] = ResolversParentTypes['IncrementTrackViewReponse']> = {
   code?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -259,6 +283,7 @@ export type IncrementTrackViewReponseResolvers<ContextType = DataSourceContext, 
 };
 
 export type MutationResolvers<ContextType = DataSourceContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  incrementNumberOfLikes?: Resolver<ResolversTypes['IncrementNumberOfLikesReponse'], ParentType, ContextType, RequireFields<MutationIncrementNumberOfLikesArgs, 'id'>>;
   incrementTrackView?: Resolver<ResolversTypes['IncrementTrackViewReponse'], ParentType, ContextType, RequireFields<MutationIncrementTrackViewArgs, 'id'>>;
 };
 
@@ -295,6 +320,7 @@ export type Resolvers<ContextType = DataSourceContext> = {
   Author?: AuthorResolvers<ContextType>;
   Doctor?: DoctorResolvers<ContextType>;
   Film?: FilmResolvers<ContextType>;
+  IncrementNumberOfLikesReponse?: IncrementNumberOfLikesReponseResolvers<ContextType>;
   IncrementTrackViewReponse?: IncrementTrackViewReponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   People?: PeopleResolvers<ContextType>;

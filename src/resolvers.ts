@@ -57,6 +57,26 @@ export const resolvers: Resolvers  = {
           track: null
         }
       }
+    },
+    incrementNumberOfLikes: async (_, {id}, {dataSources: {trackAPI}}) => {
+      try {
+        const track = await trackAPI.incrementNumberOfLikes(id);
+        const message = `incrementNumberOfLikes successful! `
+  
+        return {
+          code: 200,
+          message,
+          success: true,
+          track
+        }
+      } catch {
+        return {
+          code: 304,
+          message: 'numberOfLikes not incremented',
+          success: false,
+          track: null
+        }
+      }
     }
   },
   Track: {
