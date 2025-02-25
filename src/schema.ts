@@ -43,7 +43,7 @@ export const typeDefs = gql`
     name: String
     speciality: Speciality
   }
-
+ 
   enum Speciality {
     PSYCHOLOGIST
     OPHTALMOLOGIST
