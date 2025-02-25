@@ -12,3 +12,25 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model TodoList {
+  id        String     @id @default(uuid())
+  name      String
+  todoItems TodoItem[]
+  User User[]
+}
+
+model TodoItem {
+  id          String   @id @default(uuid())
+  description String
+  todoList    TodoList @relation(fields: [todoListId], references: [id])
+  todoListId  String
+}
+
+model User {
+  id         String   @id @default(uuid())
+  username   String   @unique
+  password   String
+  todoList   TodoList @relation(fields: [todoListId], references: [id])
+  todoListId String
+}
