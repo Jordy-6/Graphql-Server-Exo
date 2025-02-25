@@ -43,7 +43,7 @@ export const typeDefs = gql`
     name: String
     speciality: Speciality
   }
- 
+
   enum Speciality {
     PSYCHOLOGIST
     OPHTALMOLOGIST
@@ -61,4 +61,5 @@ export const typeDefs = gql`
     eyeColor: String
     films: [Film]!
   }
+
 `;

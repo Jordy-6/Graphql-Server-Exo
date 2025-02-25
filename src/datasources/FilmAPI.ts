@@ -1,7 +1,7 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
 import { FilmModel, PeopleModel } from "../models.js";
 
-export class GhibliAPI extends RESTDataSource {
+export class FilmAPI extends RESTDataSource {
   baseURL = 'https://ghibliapi.dev';
 
   getFilms() {

@@ -12,9 +12,7 @@ const doctorsData = [
   },
 ];
 
-
-
-export const resolvers: Resolvers = {
+export const resolvers: Resolvers  = {
   Query: {
     doctors: (_, {specialities}) => specialities ? doctorsData.filter(doctor => specialities.includes(doctor.speciality)) : doctorsData,
     add: (_, {number1, number2}) => number1 + number2,
@@ -36,8 +34,8 @@ export const resolvers: Resolvers = {
     getTracks: (_, __, {dataSources}) => {
       return dataSources.trackAPI.getTracks()
     },
-    getFilms: (_, __, {dataSources: {ghibliAPI}}) => ghibliAPI.getFilms(),
-    getPeople: (_, __, {dataSources: {ghibliAPI}}) => ghibliAPI.getPeople(),
+    getFilms: (_, __, {dataSources: {filmAPI}}) => filmAPI.getFilms(),
+    getPeople: (_, __, {dataSources: {filmAPI}}) => filmAPI.getPeople(),
   },
   Mutation: {
     incrementTrackView: async (_, {id}, {dataSources: {trackAPI}}) => {
@@ -67,10 +65,10 @@ export const resolvers: Resolvers = {
     }
   },
   Film: {
-    people: ({people}, _, {dataSources: {ghibliAPI}}) => ghibliAPI.getPeopleByUrls(people),
+    people: ({people}, _, {dataSources: {filmAPI}}) => filmAPI.getPeopleByUrls(people),
   },
   People: {
     eyeColor: ({eye_color}) => eye_color,
-    films: ({films}, _, {dataSources: {ghibliAPI}}) => ghibliAPI.getFilmsByUrls(films)
+    films: ({films}, _, {dataSources: {filmAPI}}) => filmAPI.getFilmsByUrls(films)
   }
 }
