@@ -1,5 +1,6 @@
 import { Resolvers, Speciality } from "./types.js";
 import { getClosestColor } from "./utils/colors.js";
+import { createUser } from "./mutations/users/createUser.js";
 
 const doctorsData = [
   {
@@ -77,7 +78,8 @@ export const resolvers: Resolvers  = {
           track: null
         }
       }
-    }
+    },
+    createUser,
   },
   Track: {
     author: (parent, _, {dataSources}) => {

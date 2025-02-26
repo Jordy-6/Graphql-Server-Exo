@@ -17,7 +17,8 @@ model TodoList {
   id        String     @id @default(uuid())
   name      String
   todoItems TodoItem[]
-  User User[]
+  User      User       @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model TodoItem {
@@ -28,9 +29,8 @@ model TodoItem {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  username   String   @unique
-  password   String
-  todoList   TodoList @relation(fields: [todoListId], references: [id])
-  todoListId String
+  id        String     @id @default(uuid())
+  username  String     @unique
+  password  String
+  todoLists TodoList[]
 }
